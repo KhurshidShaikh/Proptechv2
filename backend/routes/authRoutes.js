@@ -160,6 +160,7 @@ router.get("/isloggedin", async (req, res) => {
 
 router.post("/verifyemail", async (req, res) => {
   const { email } = req.body;
+  
   try {
     if (!email) {
       return res.json({ message: "Email is required" });
