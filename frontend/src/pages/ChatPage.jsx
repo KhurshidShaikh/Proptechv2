@@ -25,9 +25,9 @@ const ChatPage = () => {
   const socketRef = useRef();
   const scrollRef = useRef(null);
 
-  
+
   useEffect(() => {
-    const newSocket = io("http://localhost:3100", {
+    const newSocket = io(import.meta.env.VITE_SOCKET_URL || "http://localhost:3100", {
       transports: ["websocket"],
       reconnection: true,
     });
@@ -77,7 +77,7 @@ const ChatPage = () => {
     };
   }, [socket, currentUser, id]);
 
- 
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: "smooth" });
@@ -168,18 +168,16 @@ const ChatPage = () => {
               chat.messages.map((message, index) => (
                 <div
                   key={message._id || index}
-                  className={`flex ${
-                    message.sender === currentUser._id
+                  className={`flex ${message.sender === currentUser._id
                       ? "justify-end"
                       : "justify-start"
-                  } mb-4`}
+                    } mb-4`}
                 >
                   <div
-                    className={`max-w-md rounded-lg p-3 ${
-                      message.sender === currentUser._id
+                    className={`max-w-md rounded-lg p-3 ${message.sender === currentUser._id
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted"
-                    }`}
+                      }`}
                   >
                     <p className="text-sm">{message.text}</p>
                     <p className="text-xs mt-1 opacity-70">

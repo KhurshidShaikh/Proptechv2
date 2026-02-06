@@ -24,7 +24,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import heroimage from "@/assets/house-primary.svg";
-import axios from "axios";
+import axios from "@/api/axios";
 
 const formSchema = z.object({
   username: z.string().min(6, {
@@ -55,9 +55,8 @@ function Signup() {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:3100/api/auth/register",
-        values,
-        { withCredentials: true }
+        "/auth/register",
+        values
       );
 
       if (response.data.userId) {

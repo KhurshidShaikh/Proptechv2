@@ -20,7 +20,7 @@ import { z } from "zod";
 import heroimage from "@/assets/house-primary.svg";
 import { HomeIcon } from "lucide-react";
 import { useState } from "react";
-import axios from "axios";
+import axios from "@/api/axios";
 import { useToast } from "@/hooks/use-toast";
 import {
   InputOTP,
@@ -63,7 +63,7 @@ function OtpVerify() {
     setLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:3100/api/auth/verifyotp/${id}`,
+        `/auth/verifyotp/${id}`,
         { otp: values.otp }
       );
 

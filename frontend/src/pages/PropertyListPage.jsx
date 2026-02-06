@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Search, AlertCircle } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "@/api/axios";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
@@ -45,7 +45,7 @@ function PropertyListPage() {
 
     try {
       const response = await axios.get(
-        "http://localhost:3100/api/post/getposts",
+        "/post/getposts",
         {
           params: {
             category: queryParams.get("category"),
@@ -125,14 +125,14 @@ function PropertyListPage() {
   const handleAddressSearch = (e) => {
     e.preventDefault()
     console.log(address);
-    queryParams.set('address',address)
+    queryParams.set('address', address)
     navigate(`/list?${queryParams}`)
   }
 
   return (
     <div className="container max-w-[1300px] mx-auto p-4 grid md:grid-cols-8 gap-4">
       <div className="md:col-span-5 flex flex-col gap-4 ">
-      
+
         {queryParams.get("city") && (
           <h2 className="text-2xl font-semibold mb-4">
             Search results for {queryParams.get("city").charAt(0).toUpperCase() + queryParams.get("city").slice(1)}
@@ -197,23 +197,23 @@ function PropertyListPage() {
             </Button>
           </CardContent>
         </Card>
-       
-       
+
+
         <div className=" bg-blue-300 rounded-lg shadow ">
-              <form onSubmit={handleAddressSearch} className="flex items-center">
-                <input
-                  type="text"
-                  placeholder="Search by locality or address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value.toLowerCase())}
-                  className="flex-grow p-2 border rounded-l outline-none"
-                />
-                <button type="submit" className="bg-blue-400 text-white p-2 rounded-r hover:bg-blue-500 flex items-center justify-center">
-                  <Search className="mr-2" size={20} />
-                  Search
-                </button>
-              </form>
-            </div>
+          <form onSubmit={handleAddressSearch} className="flex items-center">
+            <input
+              type="text"
+              placeholder="Search by locality or address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value.toLowerCase())}
+              className="flex-grow p-2 border rounded-l outline-none"
+            />
+            <button type="submit" className="bg-blue-400 text-white p-2 rounded-r hover:bg-blue-500 flex items-center justify-center">
+              <Search className="mr-2" size={20} />
+              Search
+            </button>
+          </form>
+        </div>
 
 
 

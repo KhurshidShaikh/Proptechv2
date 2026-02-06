@@ -24,7 +24,7 @@ import { z } from "zod";
 import heroimage from "@/assets/house-primary.svg";
 import { HomeIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "@/api/axios";
 import { useToast } from "@/hooks/use-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/userSlice";
@@ -61,10 +61,9 @@ function AdminLogin() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:3100/api/admin/login",
+        "/admin/login",
         formData,
         {
-          withCredentials: true, 
           headers: {
             "Content-Type": "application/json",
           },

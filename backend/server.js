@@ -12,12 +12,12 @@ const userRoute = require("./routes/userRoutes");
 const postRoute = require("./routes/postRoutes");
 const chatRoute = require("./routes/chatRoutes");
 const messageRoute = require("./routes/messageRoutes");
-const adminRoute=require("./routes/adminRoutes")
+const adminRoute = require("./routes/adminRoutes")
 
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   })
 );
@@ -41,7 +41,7 @@ app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
 app.use("/api/chat", chatRoute);
 app.use("/api/message", messageRoute);
-app.use("/api/admin",adminRoute)
+app.use("/api/admin", adminRoute)
 
 
 
@@ -118,6 +118,7 @@ io.on("error", (error) => {
   console.error("Socket.IO error:", error);
 });
 
-server.listen(3100, () => {
-  console.log("Server is running on port 3100");
+const PORT = process.env.PORT || 3100;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

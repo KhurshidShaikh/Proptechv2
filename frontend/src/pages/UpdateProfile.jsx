@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "@/api/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "@/redux/userSlice"; // Make sure this path matches your Redux setup
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -66,14 +66,13 @@ function UpdateProfile() {
   const onSubmit = async (formData) => {
     try {
       const response = await axios.put(
-        `http://localhost:3100/api/user/updateuser/${id}`,
+        `/user/updateuser/${id}`,
         {
           username: formData.username,
           password: formData.password,
           avatar: avatar,
         },
         {
-          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },
@@ -99,8 +98,7 @@ function UpdateProfile() {
         // Optional: Fetch fresh user data from server to ensure consistency
         try {
           const refreshResponse = await axios.get(
-            `http://localhost:3100/api/user/${id}`,
-            { withCredentials: true }
+            `/user/${id}`
           );
           if (refreshResponse.data) {
             dispatch(setUser(refreshResponse.data));
