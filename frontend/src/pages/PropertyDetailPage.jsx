@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 // import noavatar from "../assets/noavatar.jpg";
 import Map from "../components/Map";
 import axios from "../api/axios";
+import PricePrediction from "@/components/PricePrediction";
 // import PropertyReviews from "../components/PropertyReviews";
 
 import {
@@ -276,7 +277,7 @@ export default function PropertyDetailPage() {
                     <h3 className="font-semibold mb-2">Pet Policy</h3>
                     <div className="flex items-center">
                       {property.postDetail.pets === "not-allowed" ||
-                      property.postDetail.pets === "Not-allowed" ? (
+                        property.postDetail.pets === "Not-allowed" ? (
                         <X className="mr-2 text-red-500" />
                       ) : (
                         <Check className="mr-2 text-green-500" />
@@ -345,6 +346,9 @@ export default function PropertyDetailPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* AI Price Analysis Card */}
+            <PricePrediction property={property} />
 
             {/* Action Buttons */}
             <CardFooter className="flex flex-col space-y-4 px-0">

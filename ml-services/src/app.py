@@ -3,9 +3,11 @@ import pickle
 import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from sklearn.neighbors import NearestNeighbors
 
 app = Flask(__name__)
+CORS(app, origins=os.environ.get('CLIENT_URL', '*'))
 
 # 🔹 Define dynamic paths for models and encoders
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -148,4 +150,5 @@ def recommend_properties():
 
 # ========================== RUN FLASK APP ==========================
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
