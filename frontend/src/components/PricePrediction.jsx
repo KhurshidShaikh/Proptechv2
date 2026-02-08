@@ -16,11 +16,13 @@ export default function PricePrediction({ property }) {
 
         try {
             // Convert price to Lakhs (assuming price is in full value)
-            const priceInLakhs = parseFloat(property.basicInfo.price) / 100000;
+            const priceValue = parseFloat(String(property.basicInfo.price).replace(/[^0-9.]/g, ''));
+            const priceInLakhs = priceValue / 100000;
+            const bedroomCount = parseInt(property.basicInfo.bedroom, 10) || 1;
 
             const result = await predictPrice(
                 property.basicInfo.city,
-                property.basicInfo.bedroom,
+                bedroomCount,
                 priceInLakhs
             );
             setPrediction(result);
